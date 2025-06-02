@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geometric Figures Explorer</title>
+  <style>
+    /* RESET & BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* TABS NAVIGATION */
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #007BFF;
+      margin-bottom: 20px;
+    }
+    .tabs button {
+      flex: 1;
+      padding: 10px;
+      background: none;
+      border: none;
+      border-bottom: 4px solid transparent;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #007BFF;
+      transition: all 0.3s;
+    }
+    .tabs button.active {
+      border-bottom-color: #007BFF;
+      font-weight: bold;
+    }
+    /* TAB CONTENT */
+    .tabcontent {
+      display: none;
+    }
+    .tabcontent.active {
+      display: block;
+    }
+    /* CALCULATION FORM */
+    .calc {
+      margin: 15px 0;
+    }
+    .calc label {
+      display: inline-block;
+      width: 150px;
+      font-weight: bold;
+    }
+    .calc input {
+      padding: 5px;
+      width: 100px;
+      margin-right: 10px;
+    }
+    .btn {
+      padding: 7px 15px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background: #e9f2f9;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #fff;
+      margin-top: 20px;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    }
+    /* Additional spacing for sections */
+    section {
+      margin-bottom: 30px;
+    }
+    section p, section ul {
+      margin-bottom: 10px;
+    }
+    section ul li {
+      margin-left: 20px;
+      list-style: disc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Geometric Figures Explorer</h1>
+  </header>
+  <div class="container">
+    <!-- Tabs Navigation -->
+    <div class="tabs">
+      <button class="tablinks active" onclick="openTab(event, 'square')">Square</button>
+      <button class="tablinks" onclick="openTab(event, 'rectangle')">Rectangle</button>
+      <button class="tablinks" onclick="openTab(event, 'triangle')">Triangle</button>
+      <button class="tablinks" onclick="openTab(event, 'circle')">Circle</button>
+      <button class="tablinks" onclick="openTab(event, 'trapezoid')">Trapezoid</button>
+      <button class="tablinks" onclick="openTab(event, 'rhombus')">Rhombus</button>
+      <button class="tablinks" onclick="openTab(event, 'parallelogram')">Parallelogram</button>
+      <button class="tablinks" onclick="openTab(event, 'regularPolygon')">Regular Polygon</button>
+    </div>
+
+    <!-- Square Section -->
+    <div id="square" class="tabcontent active">
+      <h2>Square</h2>
+      <section>
+        <p>A square is a quadrilateral with four equal sides and four right angles.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Area = side²</li>
+          <li>Perimeter = 4 × side</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="squareSide">Side length:</label>
+        <input type="number" id="squareSide" min="0" step="any">
+        <button class="btn" onclick="calcSquare()">Calculate</button>
+      </div>
+      <div id="squareResult" class="result"></div>
+    </div>
+
+    <!-- Rectangle Section -->
+    <div id="rectangle" class="tabcontent">
+      <h2>Rectangle</h2>
+      <section>
+        <p>A rectangle is a quadrilateral with opposite sides equal and all angles 90°.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Area = length × width</li>
+          <li>Perimeter = 2 × (length + width)</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="rectLength">Length:</label>
+        <input type="number" id="rectLength" min="0" step="any">
+        <br><br>
+        <label for="rectWidth">Width:</label>
+        <input type="number" id="rectWidth" min="0" step="any">
+        <button class="btn" onclick="calcRectangle()">Calculate</button>
+      </div>
+      <div id="rectangleResult" class="result"></div>
+    </div>
+
+    <!-- Triangle Section -->
+    <div id="triangle" class="tabcontent">
+      <h2>Triangle</h2>
+      <section>
+        <p>A triangle is a three‑sided polygon. When three side lengths are known, the area can be computed using Heron’s formula.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Perimeter = a + b + c</li>
+          <li>Semi‑perimeter, s = (a + b + c) / 2</li>
+          <li>Area = √(s × (s − a) × (s − b) × (s − c))</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="triA">Side a:</label>
+        <input type="number" id="triA" min="0" step="any">
+        <br><br>
+        <label for="triB">Side b:</label>
+        <input type="number" id="triB" min="0" step="any">
+        <br><br>
+        <label for="triC">Side c:</label>
+        <input type="number" id="triC" min="0" step="any">
+        <button class="btn" onclick="calcTriangle()">Calculate</button>
+      </div>
+      <div id="triangleResult" class="result"></div>
+    </div>
+
+    <!-- Circle Section -->
+    <div id="circle" class="tabcontent">
+      <h2>Circle</h2>
+      <section>
+        <p>A circle is defined by its radius.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Area = π × r²</li>
+          <li>Circumference = 2 × π × r</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="circleRadius">Radius:</label>
+        <input type="number" id="circleRadius" min="0" step="any">
+        <button class="btn" onclick="calcCircle()">Calculate</button>
+      </div>
+      <div id="circleResult" class="result"></div>
+    </div>
+
+    <!-- Trapezoid Section -->
+    <div id="trapezoid" class="tabcontent">
+      <h2>Trapezoid</h2>
+      <section>
+        <p>A trapezoid is a quadrilateral with at least one pair of parallel sides.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Area = ((base1 + base2) × height) / 2</li>
+          <li>Perimeter = base1 + base2 + side1 + side2</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="trapBase1">Base 1:</label>
+        <input type="number" id="trapBase1" min="0" step="any">
+        <br><br>
+        <label for="trapBase2">Base 2:</label>
+        <input type="number" id="trapBase2" min="0" step="any">
+        <br><br>
+        <label for="trapSide1">Side 1:</label>
+        <input type="number" id="trapSide1" min="0" step="any">
+        <br><br>
+        <label for="trapSide2">Side 2:</label>
+        <input type="number" id="trapSide2" min="0" step="any">
+        <br><br>
+        <label for="trapHeight">Height:</label>
+        <input type="number" id="trapHeight" min="0" step="any">
+        <button class="btn" onclick="calcTrapezoid()">Calculate</button>
+      </div>
+      <div id="trapezoidResult" class="result"></div>
+    </div>
+
+    <!-- Rhombus Section -->
+    <div id="rhombus" class="tabcontent">
+      <h2>Rhombus</h2>
+      <section>
+        <p>A rhombus is a quadrilateral with four equal sides. Its area is calculated using its diagonals.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Area = (diagonal1 × diagonal2) / 2</li>
+          <li>Side = √((diagonal1/2)² + (diagonal2/2)²)</li>
+          <li>Perimeter = 4 × side</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="rhombusD1">Diagonal 1:</label>
+        <input type="number" id="rhombusD1" min="0" step="any">
+        <br><br>
+        <label for="rhombusD2">Diagonal 2:</label>
+        <input type="number" id="rhombusD2" min="0" step="any">
+        <button class="btn" onclick="calcRhombus()">Calculate</button>
+      </div>
+      <div id="rhombusResult" class="result"></div>
+    </div>
+
+    <!-- Parallelogram Section -->
+    <div id="parallelogram" class="tabcontent">
+      <h2>Parallelogram</h2>
+      <section>
+        <p>A parallelogram is a quadrilateral with opposite sides parallel.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Area = base × height</li>
+          <li>Perimeter = 2 × (base + side)</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="paraBase">Base:</label>
+        <input type="number" id="paraBase" min="0" step="any">
+        <br><br>
+        <label for="paraSide">Side:</label>
+        <input type="number" id="paraSide" min="0" step="any">
+        <br><br>
+        <label for="paraHeight">Height:</label>
+        <input type="number" id="paraHeight" min="0" step="any">
+        <button class="btn" onclick="calcParallelogram()">Calculate</button>
+      </div>
+      <div id="parallelogramResult" class="result"></div>
+    </div>
+
+    <!-- Regular Polygon Section -->
+    <div id="regularPolygon" class="tabcontent">
+      <h2>Regular Polygon</h2>
+      <section>
+        <p>A regular polygon has all sides and angles equal.</p>
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Perimeter = n × s</li>
+          <li>Area = (n × s²) / (4 × tan(π/n))</li>
+        </ul>
+      </section>
+      <div class="calc">
+        <label for="polySides">Number of sides (n):</label>
+        <input type="number" id="polySides" min="3" step="1">
+        <br><br>
+        <label for="polySideLength">Side length (s):</label>
+        <input type="number" id="polySideLength" min="0" step="any">
+        <button class="btn" onclick="calcRegularPolygon()">Calculate</button>
+      </div>
+      <div id="regularPolygonResult" class="result"></div>
+    </div>
+  </div>
+  
+  <footer>
+    Bocaletto Luca
+  </footer>
+  
+  <script>
+    "use strict";
+    // TAB NAVIGATION FUNCTION
+    function openTab(evt, tabName) {
+      const tabcontents = document.getElementsByClassName("tabcontent");
+      for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+        tabcontents[i].classList.remove("active");
+      }
+      const tablinks = document.getElementsByClassName("tablinks");
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+      }
+      document.getElementById(tabName).style.display = "block";
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+    
+    // Set default tab
+    document.getElementById("defaultTab").click();
+
+    /* ----- CALCULATOR FUNCTIONS ----- */
+
+    // Square
+    function calcSquare() {
+      const side = parseFloat(document.getElementById("squareSide").value);
+      const result = document.getElementById("squareResult");
+      if (isNaN(side) || side <= 0) {
+        result.innerHTML = "<p>Please enter a valid positive number.</p>";
+        return;
+      }
+      const area = side * side;
+      const perim = 4 * side;
+      result.innerHTML = `<p>Area: ${area.toFixed(2)}</p><p>Perimeter: ${perim.toFixed(2)}</p>`;
+    }
+
+    // Rectangle
+    function calcRectangle() {
+      const length = parseFloat(document.getElementById("rectLength").value);
+      const width = parseFloat(document.getElementById("rectWidth").value);
+      const result = document.getElementById("rectangleResult");
+      if (isNaN(length) || length <= 0 || isNaN(width) || width <= 0) {
+        result.innerHTML = "<p>Please enter valid positive numbers.</p>";
+        return;
+      }
+      const area = length * width;
+      const perim = 2 * (length + width);
+      result.innerHTML = `<p>Area: ${area.toFixed(2)}</p><p>Perimeter: ${perim.toFixed(2)}</p>`;
+    }
+
+    // Triangle (Heron's Formula)
+    function calcTriangle() {
+      const a = parseFloat(document.getElementById("triA").value);
+      const b = parseFloat(document.getElementById("triB").value);
+      const c = parseFloat(document.getElementById("triC").value);
+      const result = document.getElementById("triangleResult");
+      if (isNaN(a) || a <= 0 || isNaN(b) || b <= 0 || isNaN(c) || c <= 0) {
+        result.innerHTML = "<p>Please enter valid positive numbers for all sides.</p>";
+        return;
+      }
+      // Check triangle inequality
+      if (a + b <= c || a + c <= b || b + c <= a) {
+        result.innerHTML = "<p>The entered values do not form a valid triangle.</p>";
+        return;
+      }
+      const perim = a + b + c;
+      const s = perim / 2;
+      const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+      result.innerHTML = `<p>Area: ${area.toFixed(2)} (Heron's formula)</p><p>Perimeter: ${perim.toFixed(2)}</p>`;
+    }
+
+    // Circle
+    function calcCircle() {
+      const r = parseFloat(document.getElementById("circleRadius").value);
+      const result = document.getElementById("circleResult");
+      if (isNaN(r) || r <= 0) {
+        result.innerHTML = "<p>Please enter a valid positive radius.</p>";
+        return;
+      }
+      const area = Math.PI * r * r;
+      const circ = 2 * Math.PI * r;
+      result.innerHTML = `<p>Area: ${area.toFixed(2)}</p><p>Circumference: ${circ.toFixed(2)}</p>`;
+    }
+
+    // Trapezoid
+    function calcTrapezoid() {
+      const base1 = parseFloat(document.getElementById("trapBase1").value);
+      const base2 = parseFloat(document.getElementById("trapBase2").value);
+      const side1 = parseFloat(document.getElementById("trapSide1").value);
+      const side2 = parseFloat(document.getElementById("trapSide2").value);
+      const height = parseFloat(document.getElementById("trapHeight").value);
+      const result = document.getElementById("trapezoidResult");
+      if (isNaN(base1) || base1 <= 0 || isNaN(base2) || base2 <= 0 ||
+          isNaN(side1) || side1 <= 0 || isNaN(side2) || side2 <= 0 ||
+          isNaN(height) || height <= 0) {
+        result.innerHTML = "<p>Please enter valid positive numbers for all fields.</p>";
+        return;
+      }
+      const area = ((base1 + base2) * height) / 2;
+      const perim = base1 + base2 + side1 + side2;
+      result.innerHTML = `<p>Area: ${area.toFixed(2)}</p><p>Perimeter: ${perim.toFixed(2)}</p>`;
+    }
+
+    // Rhombus
+    function calcRhombus() {
+      const d1 = parseFloat(document.getElementById("rhombusD1").value);
+      const d2 = parseFloat(document.getElementById("rhombusD2").value);
+      const result = document.getElementById("rhombusResult");
+      if (isNaN(d1) || d1 <= 0 || isNaN(d2) || d2 <= 0) {
+        result.innerHTML = "<p>Please enter valid positive values for both diagonals.</p>";
+        return;
+      }
+      const area = (d1 * d2) / 2;
+      const side = Math.sqrt(Math.pow(d1 / 2, 2) + Math.pow(d2 / 2, 2));
+      const perim = 4 * side;
+      result.innerHTML = `<p>Area: ${area.toFixed(2)}</p><p>Perimeter: ${perim.toFixed(2)}</p>`;
+    }
+
+    // Parallelogram
+    function calcParallelogram() {
+      const base = parseFloat(document.getElementById("paraBase").value);
+      const side = parseFloat(document.getElementById("paraSide").value);
+      const height = parseFloat(document.getElementById("paraHeight").value);
+      const result = document.getElementById("parallelogramResult");
+      if (isNaN(base) || base <= 0 || isNaN(side) || side <= 0 || isNaN(height) || height <= 0) {
+        result.innerHTML = "<p>Please enter valid positive numbers for all fields.</p>";
+        return;
+      }
+      const area = base * height;
+      const perim = 2 * (base + side);
+      result.innerHTML = `<p>Area: ${area.toFixed(2)}</p><p>Perimeter: ${perim.toFixed(2)}</p>`;
+    }
+
+    // Regular Polygon
+    function calcRegularPolygon() {
+      const n = parseInt(document.getElementById("polySides").value);
+      const s = parseFloat(document.getElementById("polySideLength").value);
+      const result = document.getElementById("regularPolygonResult");
+      if (isNaN(n) || n < 3 || isNaN(s) || s <= 0) {
+        result.innerHTML = "<p>Please enter a valid number of sides (≥3) and a positive side length.</p>";
+        return;
+      }
+      const perim = n * s;
+      const area = (n * s * s) / (4 * Math.tan(Math.PI / n));
+      result.innerHTML = `<p>Area: ${area.toFixed(2)}</p><p>Perimeter: ${perim.toFixed(2)}</p>`;
+    }
+  </script>
+</body>
+</html>
