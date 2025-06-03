@@ -2,6 +2,7 @@
 
 🚀 **2D Geometry Web App** is an interactive educational tool designed for **calculating properties, studying formulas, and visualizing geometric shapes**. The app covers a wide range of **2D figures**, allowing users to **compute area, perimeter, and other attributes** dynamically while learning their mathematical rules. 🧮  
 
+[![Test Online](https://img.shields.io/badge/Test%20Online-Click%20Here-brightgreen?style=for-the-badge)](https://bocaletto-luca.github.io/Figures2D/)
 ---
 
 ## 🏆 Features  
